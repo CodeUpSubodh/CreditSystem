@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Credit Score Form</title>
+</head>
+<body>
+    <h1>Answer the following questions:</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+<script>
+    const fields = document.querySelectorAll('form .field');
+    let index = 0;
+
+    function showNextField() {
+        if (index > 0) fields[index - 1].style.display = 'none';
+        if (index < fields.length) {
+            fields[index].style.display = 'block';
+            index++;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        fields.forEach(field => field.style.display = 'none');
+        showNextField();
+
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNextField();
+        });
+    });
+</script>
